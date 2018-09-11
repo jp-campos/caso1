@@ -19,17 +19,44 @@ public class Buffer {
 	}
 	
 	
+	public int getElementos()
+	{
+		return elementos; 
+	}
+	
+	
+	public boolean hayEspacio()
+	{
+		return elementos < tamaño; 
+	}
 	
 	
 	public  synchronized void agregar(Mensaje m)
 	{
 		
+		if(elementos < tamaño)
+		{
+			buffer.add(m);
+			elementos++;
+			
+		}else
+		{
+			
+		}
+		
+		
 	}
 	
 	
-	public  synchronized void retirar()
+	
+	
+	
+	
+	
+	public synchronized Mensaje retirar()
 	{
-		
+		elementos--; 	
+		return buffer.remove(elementos-1);
 	}
 	
 	

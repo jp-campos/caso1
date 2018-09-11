@@ -3,13 +3,15 @@ package caso1;
 public class Mensaje {
 
 	
-	private int mensaje; 
+	private int contenido; 
+	private int respuesta;
+	
 	
 	
 	
 	public Mensaje (int pMensaje)
 	{
-		mensaje = pMensaje; 
+		contenido = pMensaje; 
 	}
 	
 	
@@ -22,14 +24,28 @@ public class Mensaje {
 		
 			e.printStackTrace();
 		} 
-		
+	}
+	
+	//no se si synchronized
+	public void mensajeRecibido()
+	{
+		notify(); 
 	}
 	
 	
-	public synchronized void mensajeRecibido()
+	public int darContenido()
 	{
-		
-		notify(); 
+		return contenido; 
+	}
+
+	public int darRespuesta()
+	{
+		return respuesta; 
+	}
+	
+	public void setRespuesta(int pRespuesta)
+	{
+		respuesta = pRespuesta;
 	}
 	
 	
