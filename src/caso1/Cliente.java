@@ -33,13 +33,12 @@ public class Cliente extends Thread{
 			Mensaje mensaje = new Mensaje(contenido);
 			
 			
-			
+			//Mientas que el buffer esté lleno
 			while(!buffer.hayEspacio())
 			{
 				yield();
 			}
-			
-			System.out.println("El cliente con id " + id);
+
 			
 			buffer.agregar(mensaje);
 			mensaje.enviarMensaje();
@@ -48,7 +47,7 @@ public class Cliente extends Thread{
 			
 			}
 		
-		System.out.println("Salio el cliente id: " + id);
+		
 		caso.salioCliente();
 		
 	}

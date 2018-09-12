@@ -25,11 +25,13 @@ public class Servidor extends Thread{
 			
 			Mensaje m = buffer.retirar();
 			
+			//Si si hay un mensaje que se pueda procesar
 			if(m!= null)
 			{	
 				
 			int contenido = m.darContenido();
 			m.setRespuesta(contenido++);
+			//despierta al cliente
 			m.mensajeRecibido();
 			}
 			

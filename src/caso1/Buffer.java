@@ -34,12 +34,9 @@ public class Buffer {
 	
 	public  synchronized void agregar(Mensaje m)
 	{
-		
-			
 			buffer.add(m);
-			sumarRestar(1);
-
-		
+			//elemtos++
+			sumarRestar(1);	
 	}
 	
 	
@@ -60,13 +57,15 @@ public class Buffer {
 	
 	public synchronized Mensaje retirar()
 	{
-		//System.out.println(elementos+ " - " +buffer.size());
-		if(elementos == 0)
+		//Si no hay elementos o aun el mensaje no se ha enviado return null
+		//Por no enviado se refiere a que no se ha dormido el cliente
+		if(elementos == 0||!buffer.get(elementos-1).enviado() )
 		{
 			return null; 
 		}
-	
+		//elementos ++
 		sumarRestar(-1);	
+		//quita el último elemeto del arreglo
 		return buffer.remove(elementos);
 	}
 	
