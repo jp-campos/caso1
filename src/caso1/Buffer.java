@@ -14,6 +14,7 @@ public class Buffer {
 	{
 		tamaño = pTamaño; 
 		elementos = 0; 
+		buffer = new ArrayList<>(); 
 		
 		
 	}
@@ -25,38 +26,48 @@ public class Buffer {
 	}
 	
 	
-	public boolean hayEspacio()
+	public synchronized boolean hayEspacio()
 	{
-		return elementos < tamaño; 
+		return buffer.size() < tamaño; 
 	}
 	
 	
 	public  synchronized void agregar(Mensaje m)
 	{
 		
-		if(elementos < tamaño)
-		{
-			buffer.add(m);
-			elementos++;
 			
+			buffer.add(m);
+			sumarRestar(1);
+
+		
+	}
+	
+	
+	public synchronized void sumarRestar(int sumaResta)
+	{
+		if(sumaResta > 0)
+		{
+			elementos++; 
 		}else
 		{
-			
+			elementos--;
 		}
-		
 		
 	}
 	
 	
 	
 	
-	
-	
-	
 	public synchronized Mensaje retirar()
 	{
-		elementos--; 	
-		return buffer.remove(elementos-1);
+		//System.out.println(elementos+ " - " +buffer.size());
+		if(elementos == 0)
+		{
+			return null; 
+		}
+	
+		sumarRestar(-1);	
+		return buffer.remove(elementos);
 	}
 	
 	

@@ -26,8 +26,8 @@ public class Mensaje {
 		} 
 	}
 	
-	//no se si synchronized
-	public void mensajeRecibido()
+
+	public synchronized void mensajeRecibido()
 	{
 		notify(); 
 	}
