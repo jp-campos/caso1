@@ -30,7 +30,8 @@ public class Servidor extends Thread{
 			{	
 				
 			int contenido = m.darContenido();
-			m.setRespuesta(contenido++);
+		
+			m.setRespuesta(++contenido);
 			//despierta al cliente
 			m.mensajeRecibido();
 			}

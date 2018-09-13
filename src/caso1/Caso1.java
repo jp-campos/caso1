@@ -1,6 +1,11 @@
 package caso1;
 
-import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
 
 public class Caso1 {
 
@@ -11,23 +16,65 @@ public class Caso1 {
 	
 	public Caso1()
 	{
-		Buffer buffer = new Buffer(10);
+		ArrayList<Integer> mensajesCliente = new ArrayList<>(); 
+		BufferedReader bufReader = null; 
+		
+		Buffer buffer;
+		int tamañoBuffer = 0; 
+		int numeroServidores = 0; 
 		
 		
-		numeroClientes = new Random().nextInt(20-1)+1;
-		int numServidores = new Random().nextInt(20-2)+2;
+		try {
+			bufReader = new BufferedReader(new FileReader("data.txt") );
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		}
+		
+				
+		try {
+			String linea = bufReader.readLine();
+			
+			if(linea != null)
+			{
+			String [] partes1 = linea.split(",");
+			
+			numeroClientes = Integer.parseInt(partes1[0]);
+			numeroServidores = Integer.parseInt(partes1[1]);
+			tamañoBuffer = Integer.parseInt(partes1[2]);
+		
+			linea = bufReader.readLine(); 
+			partes1 = linea.split(",");
+			
+			for (int i = 0; i < partes1.length; i++) {
+				
+				mensajesCliente.add(Integer.parseInt(partes1[i]));
+			}
+			
+			
+			
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		System.out.println("Tamaño Buffer:" + tamañoBuffer);
+		 buffer = new Buffer(tamañoBuffer);
+		
 		
 		System.out.println("Numero de clientes: " + numeroClientes);
+		System.out.println("Numero de servidores: " + numeroServidores);
 		for (int i = 0; i <numeroClientes; i++) {
 			
-			Cliente cliente = new Cliente(buffer, this, i);
-			
+			Cliente cliente = new Cliente(buffer, this, i, mensajesCliente.get(i));
 			
 			cliente.start();
 			
 		}
 		
-		for (int i = 0; i < numServidores; i++) {
+		for (int i = 0; i < numeroServidores; i++) {
 			Servidor servidor = new Servidor(buffer, this); 
 			servidor.start();
 			
@@ -38,7 +85,7 @@ public class Caso1 {
 	public synchronized void salioCliente()
 	{
 		numeroClientes--;
-		System.out.println("Salio un cliente, num Clientes: "  + numeroClientes);
+		System.out.println("Clientes: "  + numeroClientes);
 	}
 	
 	
